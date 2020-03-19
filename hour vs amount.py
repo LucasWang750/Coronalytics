@@ -1,5 +1,8 @@
 import plotly.express as px
 import plotly.graph_objects as go
+import re
+
+
 time=[]
 username=[]
 date=[]
@@ -11,7 +14,7 @@ with open('wow.txt') as f:
         data = line
 
 
-        index = data.index('2020-0')
+        index = data.index('2020-03-')
         spaceIndex = data.index(' ', index)
         newData = data[0:index-3]
         newDate = data[index:spaceIndex]
