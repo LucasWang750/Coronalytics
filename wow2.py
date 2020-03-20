@@ -19,6 +19,10 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
         entity = status.entities['hashtags']
+
+
+
+
         if(len(entity)>0):
             text = entity[0]['text']
             if(text == 'coronavirus' or text == 'Coronavirus' or text == 'CoronaVirus' or text == 'COVID' or text == 'COVID-19'):
@@ -28,7 +32,7 @@ class MyStreamListener(tweepy.StreamListener):
                 location = status.user.location
                 language = status.lang
 
-                fileHandler = open('wow.txt', 'r+')
+                fileHandler = open('name3.txt', 'r+')
                 while True:
                     line = fileHandler.readline()
                     if line.strip() == (username + ' / ' + str(times)):
