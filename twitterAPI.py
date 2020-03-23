@@ -26,7 +26,7 @@ class MyStreamListener(tweepy.StreamListener):
                 location = status.user.location
                 language = status.lang
 
-                fileHandler = open('name2.txt', 'r+')
+                fileHandler = open('name4.txt', 'r+')
                 while True:
                     line = fileHandler.readline()
                     if line.strip() == (username + ' / ' + str(times)):
