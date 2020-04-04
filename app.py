@@ -5,6 +5,8 @@ import dash_html_components as html
 import plotly
 from dash.dependencies import Input, Output
 import readFile
+from language_pie_chart import values as languageValues
+from location_pie_chart import values as locationValues
 import plotly.graph_objects as go
 
 external_stylesheets = ['style.css']
@@ -28,6 +30,18 @@ app.layout = html.Div(
         'margin-top': '1em'
         }),
         dcc.Graph(id='live-update-graph',style={'margin':'1em 1em 0px'}),
+        html.H1('Language by Tweet of all #Coronavirus tweets',style=style),
+        dcc.Graph(id='language-graph',
+                  style={'margin':'2em 2em 0px 2em'},
+                  figure={'data':[go.Pie(labels=['USA','UK','mexico','france','italy','china','russia'], values=languageValues, textinfo='label+percent',insidetextorientation='radial'
+                            )]}
+                  ),
+        html.H1('Country of Origen by Tweet of all #Coronavirus Tweets',style=style),
+        dcc.Graph(id='country-graph',
+                  style={'margin':'2em 2em 2em 2em'},
+                  figure={'data':[go.Pie(labels=['USA','UK','mexico','france','italy','china','russia'], values=locationValues, textinfo='label+percent',insidetextorientation='radial'
+                            )]}
+                  ),
         dcc.Interval(
             id='interval-component',
             interval=5*1000, # in milliseconds
@@ -41,7 +55,7 @@ app.layout = html.Div(
     ]),
     style={
         'background-color':'#24292e',
-        'height': '100vh',
+        'height': '100%',
         'width': '100vw'
     }
 )
@@ -57,38 +71,17 @@ def update_graph_live(n):
     }
 
     data['timeAmount'] = readFile.getHourAmount()
-    data['timeAmountToday'] = readFile.getHourAmountToday(currentTime[0:10])
+    data['timeAmountToday'] = readFile.getHourAmountToday('2020-03-22')
     fig = plotly.tools.make_subplots(rows=1, cols=1, vertical_spacing=0.2)
     fig['layout']['margin'] = {
         'l': 30, 'r': 10, 'b': 30, 't': 30
     }
     fig['layout']['legend'] = {'x': 0, 'y': 1, 'xanchor': 'left'}
-    
-    # fig.add_trace({
-    #     'x': data['time'],
-    #     'y': data['timeAmount'],
-    #     'type': 'bar',
-    #     'name': 'Average Tweets from last 3 days',
-    #     'text': data['timeAmount'],
-    #     'textposition':'outside',
-    #     'marker_color':'blue'
-    # },1,1)
-
-    # fig.add_trace({
-    #     'x': data['time'],
-    #     'y': data['timeAmountToday'],
-    #     'type': 'bar',
-    #     'name': 'Tweets from today',
-    #     'text': data['timeAmountToday'],
-    #     'textposition':'outside',
-    #     'marker_color':'indianred'
-    # },1,1)
-
 
     fig.add_trace(go.Bar(
         x=data['time'],
         y = data['timeAmount'],
-        name = 'Average Tweets from last 3 days',
+        name = 'Average Number of Tweets',
         marker_color = 'rgb(55, 83, 109)',
         text = data['timeAmount'],
         textposition = 'outside'

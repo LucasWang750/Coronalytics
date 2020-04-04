@@ -13,24 +13,24 @@ labels = ['english','french','spanish','turkish','italian','portuguese']
 file = open("language.txt")
 
 for line in file:
-    if (line == "en"):
+    if "en" in line:
         english += 1
-    elif (line == "fr"):
+    elif "fr" in line:
         french += 1
-    elif (line == "es"):
+    elif "es" in line:
         spanish += 1
-    elif (line == "tr"):
+    elif "tr" in line:
         turkish += 1
-    elif (line == "it"):
+    elif "it" in line:
         italian += 1
-    elif (line == "pt"):
+    elif "pt" in line:
         portuguese += 1
+
     
 values = [english, french, spanish, turkish, italian, portuguese]
 
 
-fig.update_layout(title_text='Coronavirus Language Pie Chart')
-fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
-                             insidetextorientation='radial'
-                            )])
-fig.show()
+
+#fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',insidetextorientation='radial')])
+#fig.update_layout(title_text='Coronavirus Language Pie Chart')
+#fig.show()
